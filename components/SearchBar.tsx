@@ -146,8 +146,20 @@ export default function SearchBar({ initialQuery = "", size = "lg" }: Props) {
               setHighlight((h) => Math.max(h - 1, -1));
             } else if (e.key === "Enter") {
               e.preventDefault();
-              if (results.length > 0) submit();
-              else if (showDiscoverCta) discover();
+              // If the user explicitly highlighted a row with arrow keys,
+              // honour that selection.
+              if (highlight >= 0 && results[highlight]) {
+                submit(results[highlight]);
+              } else if (showWeakMatchFooter) {
+                // Top result is only a loose match for what they typed —
+                // pressing Enter triggers live discovery instead of silently
+                // opening the wrong medicine.
+                discover();
+              } else if (results.length > 0) {
+                submit(results[0]);
+              } else if (showDiscoverCta) {
+                discover();
+              }
             } else if (e.key === "Escape") {
               setOpen(false);
             }
