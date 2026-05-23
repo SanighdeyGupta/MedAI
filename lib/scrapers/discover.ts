@@ -42,8 +42,12 @@ export async function discoverMedicine(query: string): Promise<DiscoverResult | 
   // No target_pack yet (we haven't matched anything; the user just typed a
   // free-text query). Pack-aware tiebreaker degrades gracefully — it only
   // kicks in when we DO have a pack hint.
+  // On-demand discovery runs inside a Netlify Function with a tight
+  // execution budget (~10s on the free tier). Skip 1mg's product-page
+  // second fetch — the scheduled Python crawler refreshes the page-promo
+  // price on its next 6h cycle.
   const settled = await Promise.allSettled([
-    scrapeOneMg(trimmed),
+    scrapeOneMg(trimmed, undefined, { skipProductPage: true }),
     scrapePharmEasy(trimmed),
     scrapeNetmeds(trimmed),
   ]);

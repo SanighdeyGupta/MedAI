@@ -41,7 +41,21 @@ const HEADERS = {
   Referer: "https://www.1mg.com/",
 };
 
-export async function scrapeOneMg(query: string, pack?: string | null): Promise<ScrapeResult> {
+export interface OneMgOptions {
+  /** Skip the second HTTP call that fetches the product detail page for the
+   *  consumer-displayed price. The detail-page price (~11% off) is more
+   *  accurate than the API's wholesale price (~5% off), but the second
+   *  fetch can take 3-6s. Disable when running inside a serverless function
+   *  with a short timeout — the scheduled Python crawler fills in the
+   *  better price on its next 6h cycle. */
+  skipProductPage?: boolean;
+}
+
+export async function scrapeOneMg(
+  query: string,
+  pack?: string | null,
+  options: OneMgOptions = {},
+): Promise<ScrapeResult> {
   const start = Date.now();
   const url = `${SEARCH_URL}?name=${query.replace(/ /g, "+")}`;
 
@@ -49,7 +63,7 @@ export async function scrapeOneMg(query: string, pack?: string | null): Promise<
   try {
     resp = await fetch(url, {
       headers: { ...HEADERS, Accept: "application/json" },
-      signal: AbortSignal.timeout(8_000),
+      signal: AbortSignal.timeout(5_000),
     });
   } catch (err) {
     return {
@@ -130,12 +144,14 @@ export async function scrapeOneMg(query: string, pack?: string | null): Promise<
   // Step 2: fetch the product detail page for the website-displayed price.
   // 1mg's product page applies a dynamic page-level promo on top of the
   // search API's wholesale discount (~5% off vs the page's ~11% off).
+  // Skipped when running inside a serverless function with a tight budget
+  // — the next scheduled Python crawler will overwrite with the page price.
   const path = item.url ?? "";
-  if (path.startsWith("/")) {
+  if (!options.skipProductPage && path.startsWith("/")) {
     try {
       const detail = await fetch(`https://www.1mg.com${path}`, {
         headers: { ...HEADERS, Accept: "text/html" },
-        signal: AbortSignal.timeout(6_000),
+        signal: AbortSignal.timeout(3_500),
       });
       if (detail.ok) {
         const html = await detail.text();

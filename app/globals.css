@@ -56,14 +56,15 @@ body {
   box-shadow: 0 12px 50px -10px rgba(0, 0, 0, 0.7);
 }
 
-/* Solid-dark panel for overlays where the text behind would otherwise
-   bleed through (search-results dropdown, discover CTA). Strong opacity,
-   moderate blur for polish, prominent border so the panel reads as a
-   distinct surface against any background. */
+/* Solid-dark panel for overlays where content behind must NOT bleed
+   through. We deliberately do NOT use `backdrop-filter` here — when both
+   the dropdown and elements behind it (`.glass`, `.glass-strong`) use
+   backdrop-filter, each creates its own CSS stacking context, and the
+   z-index isolation gets unreliable. A fully opaque background plus
+   `isolation: isolate` guarantees nothing leaks through. */
 .dropdown-panel {
-  background: rgba(14, 9, 26, 0.96);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  background: #110a1f; /* fully opaque, matches page tone */
+  isolation: isolate;
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow:
     0 16px 60px -8px rgba(0, 0, 0, 0.85),

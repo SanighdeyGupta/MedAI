@@ -190,7 +190,7 @@ export default function SearchBar({ initialQuery = "", size = "lg" }: Props) {
       </div>
 
       {open && results.length > 0 && (
-        <div className="absolute z-20 left-0 right-0 mt-2 dropdown-panel rounded-2xl overflow-hidden float-in">
+        <div className="absolute z-50 left-0 right-0 mt-2 dropdown-panel rounded-2xl overflow-hidden float-in">
           {results.map((m, i) => (
             <button
               key={m.id}
@@ -224,7 +224,7 @@ export default function SearchBar({ initialQuery = "", size = "lg" }: Props) {
       )}
 
       {showDiscoverCta && (
-        <div className="absolute z-20 left-0 right-0 mt-2 dropdown-panel rounded-2xl p-4 float-in">
+        <div className="absolute z-50 left-0 right-0 mt-2 dropdown-panel rounded-2xl p-4 float-in">
           <div className="text-white/70 text-sm mb-3">
             Not in our cache yet. We can search live across Netmeds, PharmEasy, and 1mg —
             takes ~3-6 seconds.
@@ -245,7 +245,7 @@ export default function SearchBar({ initialQuery = "", size = "lg" }: Props) {
       )}
 
       {discoverError && !discovering && (
-        <div className="absolute z-20 left-0 right-0 mt-2 dropdown-panel rounded-2xl p-4 border border-[#f43f5e]/30 float-in">
+        <div className="absolute z-50 left-0 right-0 mt-2 dropdown-panel rounded-2xl p-4 border border-[#f43f5e]/30 float-in">
           <div className="text-[#fda4af] text-sm">{discoverError}</div>
         </div>
       )}

@@ -34,7 +34,7 @@ export async function scrapeNetmeds(query: string, pack?: string | null): Promis
         Referer: "https://www.netmeds.com/",
         "Accept-Language": "en-IN,en;q=0.9",
       },
-      signal: AbortSignal.timeout(8_000),
+      signal: AbortSignal.timeout(5_500),
     });
   } catch (err) {
     return {

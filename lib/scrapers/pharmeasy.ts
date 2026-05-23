@@ -54,7 +54,7 @@ export async function scrapePharmEasy(query: string, pack?: string | null): Prom
         "Accept-Language": "en-IN,en;q=0.9",
         Referer: "https://pharmeasy.in/",
       },
-      signal: AbortSignal.timeout(8_000),
+      signal: AbortSignal.timeout(5_500),
     });
   } catch (err) {
     return {
