@@ -1,6 +1,7 @@
 import medicinesData from "@/data/medicines.json";
 import platformsData from "@/data/platforms.json";
 import { getSupabase } from "@/lib/db";
+import { nameScore, slugify } from "@/lib/scrapers/match";
 import type { Medicine, Offer, PharmacyId, Platform } from "@/lib/types";
 
 const JSON_MEDICINES: Medicine[] = (medicinesData as { medicines: Medicine[] }).medicines;
@@ -73,19 +74,70 @@ export async function findMedicineById(id: string): Promise<Medicine | undefined
   }
 }
 
+// Bare-bones medicine row shape returned by the supabase client for the
+// `medicines` table. Mirrors what we map to `Medicine` (offers added separately).
+interface DbMedicineRow {
+  id: string;
+  name: string;
+  composition: string;
+  manufacturer: string;
+  pack: string;
+  rx_required: boolean;
+  nppa_ceiling_inr: number | string | null;
+}
+
 export async function searchMedicines(query: string, limit = 8): Promise<Medicine[]> {
   const q = query.trim();
   if (!q) return [];
 
   const sb = getSupabase();
   if (sb) {
-    const { data, error } = await sb.rpc("search_medicines", {
-      q,
-      max_results: limit,
-    });
-    if (!error && data) {
-      // Fetch prices for matched medicines in one batch
-      const ids = data.map((m: { id: string }) => m.id);
+    try {
+      // Run two queries in parallel:
+      //   (a) pg_trgm RPC — catches semantic-similar fuzzy matches.
+      //   (b) slug-prefix + name-substring lookup — catches the case where
+      //       the DB row's canonical name has spacing/punctuation that
+      //       breaks trigram (e.g. user types "Glycomet GP1" but the row is
+      //       "Glycomet-GP 1 Tablet PR" → trigram doesn't see "gp1" as
+      //       three consecutive chars in the candidate).
+      const slug = slugify(q);
+      const slugClauses = slug.length >= 3
+        ? `id.ilike.${slug}%,id.ilike.%${slug}%`
+        : "";
+      const nameClause = `name.ilike.%${q}%,composition.ilike.%${q}%`;
+
+      const [rpcRes, fallbackRes] = await Promise.all([
+        sb.rpc("search_medicines", { q, max_results: limit }),
+        sb
+          .from("medicines")
+          .select("id,name,composition,manufacturer,pack,rx_required,nppa_ceiling_inr")
+          .or(slugClauses ? `${slugClauses},${nameClause}` : nameClause)
+          .limit(limit * 2),
+      ]);
+
+      const combined = new Map<string, DbMedicineRow>();
+      if (!rpcRes.error && rpcRes.data) {
+        for (const m of rpcRes.data as DbMedicineRow[]) combined.set(m.id, m);
+      }
+      if (!fallbackRes.error && fallbackRes.data) {
+        for (const m of fallbackRes.data as DbMedicineRow[]) {
+          if (!combined.has(m.id)) combined.set(m.id, m);
+        }
+      }
+
+      if (combined.size === 0) return [];
+
+      // Re-rank by our own nameScore (handles slug/spacing variance correctly).
+      const ranked = Array.from(combined.values())
+        .map((m) => ({
+          medicine: m,
+          score: Math.max(nameScore(q, m.name), nameScore(q, m.id)),
+        }))
+        .filter((s) => s.score >= 0.18)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, limit);
+
+      const ids = ranked.map((r) => r.medicine.id);
       if (ids.length === 0) return [];
       const { data: prices } = await sb.from("prices").select("*").in("medicine_id", ids);
       const byMed = new Map<string, Offer[]>();
@@ -94,19 +146,20 @@ export async function searchMedicines(query: string, limit = 8): Promise<Medicin
         list.push(rowToOffer(p));
         byMed.set(p.medicine_id, list);
       });
-      return data.map((m: Medicine & { nppa_ceiling_inr: number | string | null }) => ({
+
+      return ranked.map(({ medicine: m }) => ({
         id: m.id,
         name: m.name,
         composition: m.composition,
         manufacturer: m.manufacturer,
         pack: m.pack,
         rx_required: m.rx_required,
-        nppa_ceiling_inr:
-          m.nppa_ceiling_inr === null ? null : Number(m.nppa_ceiling_inr),
+        nppa_ceiling_inr: m.nppa_ceiling_inr === null ? null : Number(m.nppa_ceiling_inr),
         offers: byMed.get(m.id) ?? [],
       }));
+    } catch (err) {
+      console.warn("[medicines] search hybrid path failed, falling back to JSON:", (err as Error).message);
     }
-    // Fall through to JSON on RPC error
   }
 
   // JSON fallback (Day 1 behavior)
