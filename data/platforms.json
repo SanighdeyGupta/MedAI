@@ -1,0 +1,36 @@
+{
+  "platforms": [
+    {
+      "id": "1mg",
+      "name": "Tata 1mg",
+      "trust": 0.90,
+      "color": "#FF6F00",
+      "gradient": "linear-gradient(135deg, #FF6F00 0%, #FF3D00 100%)",
+      "domain": "1mg.com"
+    },
+    {
+      "id": "PharmEasy",
+      "name": "PharmEasy",
+      "trust": 0.85,
+      "color": "#10B981",
+      "gradient": "linear-gradient(135deg, #10B981 0%, #047857 100%)",
+      "domain": "pharmeasy.in"
+    },
+    {
+      "id": "Netmeds",
+      "name": "Netmeds",
+      "trust": 0.80,
+      "color": "#0EA5E9",
+      "gradient": "linear-gradient(135deg, #0EA5E9 0%, #0369A1 100%)",
+      "domain": "netmeds.com"
+    },
+    {
+      "id": "Apollo",
+      "name": "Apollo Pharmacy",
+      "trust": 0.90,
+      "color": "#EF4444",
+      "gradient": "linear-gradient(135deg, #EF4444 0%, #B91C1C 100%)",
+      "domain": "apollopharmacy.in"
+    }
+  ]
+}

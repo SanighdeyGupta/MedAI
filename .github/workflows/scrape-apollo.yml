@@ -1,0 +1,49 @@
+name: Scrape Apollo
+
+on:
+  # Every 6 hours, offset 2h from Netmeds + 1h from PharmEasy.
+  schedule:
+    - cron: "0 2,8,14,20 * * *"
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Max medicines to scrape"
+        required: false
+        default: "30"
+
+concurrency:
+  group: scrape-apollo
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    name: Scrape Apollo prices (Patchright)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15  # Patchright is ~7s per medicine; budget headroom.
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: scrapers/requirements.txt
+
+      - name: Install scraper dependencies
+        run: pip install -r scrapers/requirements.txt
+
+      - name: Install Patchright Chromium
+        # Headless-shell-only build is enough for our DOM-extraction needs
+        # and ~3x smaller than full Chromium.
+        run: patchright install chromium --no-shell || patchright install chromium
+
+      - name: Run Apollo scraper
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          PYTHONIOENCODING: utf-8
+        run: |
+          python -m scrapers.run --site apollo --limit "${{ github.event.inputs.limit || '30' }}"

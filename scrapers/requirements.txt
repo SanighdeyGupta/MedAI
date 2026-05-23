@@ -1,0 +1,8 @@
+httpx>=0.27,<0.29
+selectolax>=0.3.21
+supabase>=2.7,<3
+python-dotenv>=1.0,<2
+# Patchright: anti-detection-patched Playwright. Used for Apollo (Day 5)
+# and 1mg (Day 6). The browser binary is installed separately:
+#   patchright install chromium
+patchright>=1.50,<2

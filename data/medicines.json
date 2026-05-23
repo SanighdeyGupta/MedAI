@@ -1,0 +1,384 @@
+{
+  "_meta": {
+    "note": "Day-1 demo seed. Prices are illustrative only, not live. Real scrapers come online from Day 3 onwards (see implementation_plan.md).",
+    "generated_at": "2026-05-23",
+    "currency": "INR"
+  },
+  "medicines": [
+    {
+      "id": "dolo-650",
+      "name": "Dolo 650",
+      "composition": "Paracetamol 650mg",
+      "manufacturer": "Micro Labs",
+      "pack": "Strip of 15 tablets",
+      "rx_required": false,
+      "nppa_ceiling_inr": 30.91,
+      "offers": [
+        { "pharmacy": "1mg", "price": 29.50, "mrp": 30.91, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/dolo-650-tablet-74467" },
+        { "pharmacy": "PharmEasy", "price": 27.82, "mrp": 30.91, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/dolo-650mg-tablet-15s-72097" },
+        { "pharmacy": "Netmeds", "price": 28.16, "mrp": 30.91, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/dolo-650mg-tablet-15-s" },
+        { "pharmacy": "Apollo", "price": 30.91, "mrp": 30.91, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/otc/dolo-650-tablet-15s" }
+      ]
+    },
+    {
+      "id": "crocin-advance-500",
+      "name": "Crocin Advance 500",
+      "composition": "Paracetamol 500mg",
+      "manufacturer": "GSK",
+      "pack": "Strip of 15 tablets",
+      "rx_required": false,
+      "nppa_ceiling_inr": 32.50,
+      "offers": [
+        { "pharmacy": "1mg", "price": 30.88, "mrp": 32.50, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/crocin-advance-500mg-tablet-188562" },
+        { "pharmacy": "PharmEasy", "price": 29.25, "mrp": 32.50, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/crocin-advance-500mg-tablet" },
+        { "pharmacy": "Netmeds", "price": 28.93, "mrp": 32.50, "delivery_days": 4, "in_stock": false, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/crocin-advance-500mg-tablet-15s" },
+        { "pharmacy": "Apollo", "price": 31.85, "mrp": 32.50, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/otc/crocin-advance-500mg-tablet-15s" }
+      ]
+    },
+    {
+      "id": "pan-40",
+      "name": "Pan 40",
+      "composition": "Pantoprazole 40mg",
+      "manufacturer": "Alkem Laboratories",
+      "pack": "Strip of 15 tablets",
+      "rx_required": true,
+      "nppa_ceiling_inr": 169.43,
+      "offers": [
+        { "pharmacy": "1mg", "price": 152.49, "mrp": 169.43, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/pan-40-tablet-66170" },
+        { "pharmacy": "PharmEasy", "price": 144.02, "mrp": 169.43, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/pan-40mg-tablet-15s-66170" },
+        { "pharmacy": "Netmeds", "price": 148.25, "mrp": 169.43, "delivery_days": 3, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/pan-40mg-tablet-15s" },
+        { "pharmacy": "Apollo", "price": 156.92, "mrp": 169.43, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/pan-40mg-tablet-15s" }
+      ]
+    },
+    {
+      "id": "azithral-500",
+      "name": "Azithral 500",
+      "composition": "Azithromycin 500mg",
+      "manufacturer": "Alembic Pharmaceuticals",
+      "pack": "Strip of 5 tablets",
+      "rx_required": true,
+      "nppa_ceiling_inr": 130.40,
+      "offers": [
+        { "pharmacy": "1mg", "price": 119.97, "mrp": 130.40, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/azithral-500-tablet-74559" },
+        { "pharmacy": "PharmEasy", "price": 110.84, "mrp": 130.40, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/azithral-500mg-tablet-5s" },
+        { "pharmacy": "Netmeds", "price": 117.36, "mrp": 130.40, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/azithral-500mg-tablet-5s" },
+        { "pharmacy": "Apollo", "price": 124.88, "mrp": 130.40, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/azithral-500mg-tablet-5s" }
+      ]
+    },
+    {
+      "id": "cetirizine-10",
+      "name": "Cetirizine 10",
+      "composition": "Cetirizine 10mg",
+      "manufacturer": "Sun Pharma",
+      "pack": "Strip of 10 tablets",
+      "rx_required": false,
+      "nppa_ceiling_inr": 28.50,
+      "offers": [
+        { "pharmacy": "1mg", "price": 24.22, "mrp": 28.50, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/cetirizine-10mg-tablet" },
+        { "pharmacy": "PharmEasy", "price": 22.80, "mrp": 28.50, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/cetirizine-10mg-tablet-10s" },
+        { "pharmacy": "Netmeds", "price": 23.94, "mrp": 28.50, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/cetirizine-10mg-tablet" },
+        { "pharmacy": "Apollo", "price": 26.07, "mrp": 28.50, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/cetirizine-10mg-tablet-10s" }
+      ]
+    },
+    {
+      "id": "allegra-120",
+      "name": "Allegra 120",
+      "composition": "Fexofenadine 120mg",
+      "manufacturer": "Sanofi India",
+      "pack": "Strip of 10 tablets",
+      "rx_required": false,
+      "nppa_ceiling_inr": 198.50,
+      "offers": [
+        { "pharmacy": "1mg", "price": 178.65, "mrp": 198.50, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/allegra-120mg-tablet-66395" },
+        { "pharmacy": "PharmEasy", "price": 168.72, "mrp": 198.50, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/allegra-120mg-tablet-10s" },
+        { "pharmacy": "Netmeds", "price": 174.68, "mrp": 198.50, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/allegra-120mg-tablet-10s" },
+        { "pharmacy": "Apollo", "price": 188.57, "mrp": 198.50, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/allegra-120mg-tablet-10s" }
+      ]
+    },
+    {
+      "id": "atorva-10",
+      "name": "Atorva 10",
+      "composition": "Atorvastatin 10mg",
+      "manufacturer": "Zydus Cadila",
+      "pack": "Strip of 15 tablets",
+      "rx_required": true,
+      "nppa_ceiling_inr": 110.62,
+      "offers": [
+        { "pharmacy": "1mg", "price": 94.03, "mrp": 110.62, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/atorva-10-tablet-74721" },
+        { "pharmacy": "PharmEasy", "price": 88.50, "mrp": 110.62, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/atorva-10mg-tablet-15s" },
+        { "pharmacy": "Netmeds", "price": 90.71, "mrp": 110.62, "delivery_days": 3, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/atorva-10mg-tablet-15s" },
+        { "pharmacy": "Apollo", "price": 99.56, "mrp": 110.62, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/atorva-10mg-tablet-15s" }
+      ]
+    },
+    {
+      "id": "glycomet-500",
+      "name": "Glycomet 500",
+      "composition": "Metformin 500mg",
+      "manufacturer": "USV",
+      "pack": "Strip of 20 tablets",
+      "rx_required": true,
+      "nppa_ceiling_inr": 21.55,
+      "offers": [
+        { "pharmacy": "1mg", "price": 19.40, "mrp": 21.55, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/glycomet-500-tablet-74838" },
+        { "pharmacy": "PharmEasy", "price": 18.32, "mrp": 21.55, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/glycomet-500mg-tablet-20s" },
+        { "pharmacy": "Netmeds", "price": 19.18, "mrp": 21.55, "delivery_days": 4, "in_stock": false, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/glycomet-500mg-tablet-20s" },
+        { "pharmacy": "Apollo", "price": 20.69, "mrp": 21.55, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/glycomet-500mg-tablet-20s" }
+      ]
+    },
+    {
+      "id": "telma-40",
+      "name": "Telma 40",
+      "composition": "Telmisartan 40mg",
+      "manufacturer": "Glenmark",
+      "pack": "Strip of 15 tablets",
+      "rx_required": true,
+      "nppa_ceiling_inr": 184.40,
+      "offers": [
+        { "pharmacy": "1mg", "price": 166.00, "mrp": 184.40, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/telma-40-tablet-66440" },
+        { "pharmacy": "PharmEasy", "price": 156.74, "mrp": 184.40, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/telma-40mg-tablet-15s" },
+        { "pharmacy": "Netmeds", "price": 162.27, "mrp": 184.40, "delivery_days": 3, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/telma-40mg-tablet-15s" },
+        { "pharmacy": "Apollo", "price": 175.18, "mrp": 184.40, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/telma-40mg-tablet-15s" }
+      ]
+    },
+    {
+      "id": "amlong-5",
+      "name": "Amlong 5",
+      "composition": "Amlodipine 5mg",
+      "manufacturer": "Micro Labs",
+      "pack": "Strip of 30 tablets",
+      "rx_required": true,
+      "nppa_ceiling_inr": 78.34,
+      "offers": [
+        { "pharmacy": "1mg", "price": 70.51, "mrp": 78.34, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/amlong-5-tablet-74929" },
+        { "pharmacy": "PharmEasy", "price": 66.59, "mrp": 78.34, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/amlong-5mg-tablet-30s" },
+        { "pharmacy": "Netmeds", "price": 67.97, "mrp": 78.34, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/amlong-5mg-tablet-30s" },
+        { "pharmacy": "Apollo", "price": 74.42, "mrp": 78.34, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/amlong-5mg-tablet-30s" }
+      ]
+    },
+    {
+      "id": "sinarest",
+      "name": "Sinarest",
+      "composition": "Paracetamol 500mg + Phenylephrine 10mg + CPM 2mg",
+      "manufacturer": "Centaur Pharmaceuticals",
+      "pack": "Strip of 10 tablets",
+      "rx_required": false,
+      "nppa_ceiling_inr": 76.50,
+      "offers": [
+        { "pharmacy": "1mg", "price": 68.85, "mrp": 76.50, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/sinarest-tablet-66622" },
+        { "pharmacy": "PharmEasy", "price": 65.03, "mrp": 76.50, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/sinarest-tablet-10s" },
+        { "pharmacy": "Netmeds", "price": 66.56, "mrp": 76.50, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/sinarest-tablet-10s" },
+        { "pharmacy": "Apollo", "price": 72.68, "mrp": 76.50, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/sinarest-tablet-10s" }
+      ]
+    },
+    {
+      "id": "combiflam",
+      "name": "Combiflam",
+      "composition": "Ibuprofen 400mg + Paracetamol 325mg",
+      "manufacturer": "Sanofi India",
+      "pack": "Strip of 20 tablets",
+      "rx_required": false,
+      "nppa_ceiling_inr": 65.20,
+      "offers": [
+        { "pharmacy": "1mg", "price": 58.68, "mrp": 65.20, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/combiflam-tablet-66773" },
+        { "pharmacy": "PharmEasy", "price": 55.42, "mrp": 65.20, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/combiflam-tablet-20s" },
+        { "pharmacy": "Netmeds", "price": 57.38, "mrp": 65.20, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/combiflam-tablet-20s" },
+        { "pharmacy": "Apollo", "price": 61.94, "mrp": 65.20, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/combiflam-tablet-20s" }
+      ]
+    },
+    {
+      "id": "saridon",
+      "name": "Saridon",
+      "composition": "Paracetamol 250mg + Caffeine 50mg + Propyphenazone 150mg",
+      "manufacturer": "Piramal Enterprises",
+      "pack": "Strip of 10 tablets",
+      "rx_required": false,
+      "nppa_ceiling_inr": 50.30,
+      "offers": [
+        { "pharmacy": "1mg", "price": 45.27, "mrp": 50.30, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/saridon-tablet-66798" },
+        { "pharmacy": "PharmEasy", "price": 42.76, "mrp": 50.30, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/saridon-tablet-10s" },
+        { "pharmacy": "Netmeds", "price": 43.76, "mrp": 50.30, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/saridon-tablet-10s" },
+        { "pharmacy": "Apollo", "price": 47.78, "mrp": 50.30, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/saridon-tablet-10s" }
+      ]
+    },
+    {
+      "id": "vicks-action-500",
+      "name": "Vicks Action 500",
+      "composition": "Paracetamol 500mg + Phenylephrine 5mg + Caffeine 32mg",
+      "manufacturer": "Procter & Gamble",
+      "pack": "Strip of 10 tablets",
+      "rx_required": false,
+      "nppa_ceiling_inr": 58.00,
+      "offers": [
+        { "pharmacy": "1mg", "price": 52.20, "mrp": 58.00, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/vicks-action-500-advance-tablet" },
+        { "pharmacy": "PharmEasy", "price": 49.30, "mrp": 58.00, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/vicks-action-500-advance-tablet-10s" },
+        { "pharmacy": "Netmeds", "price": 50.46, "mrp": 58.00, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/vicks-action-500-advance-tablet-10s" },
+        { "pharmacy": "Apollo", "price": 55.10, "mrp": 58.00, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/vicks-action-500-advance-tablet-10s" }
+      ]
+    },
+    {
+      "id": "ecosprin-75",
+      "name": "Ecosprin 75",
+      "composition": "Aspirin 75mg",
+      "manufacturer": "USV",
+      "pack": "Strip of 14 tablets",
+      "rx_required": true,
+      "nppa_ceiling_inr": 9.41,
+      "offers": [
+        { "pharmacy": "1mg", "price": 8.47, "mrp": 9.41, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/ecosprin-75-tablet-66932" },
+        { "pharmacy": "PharmEasy", "price": 8.00, "mrp": 9.41, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/ecosprin-75mg-tablet-14s" },
+        { "pharmacy": "Netmeds", "price": 8.27, "mrp": 9.41, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/ecosprin-75mg-tablet-14s" },
+        { "pharmacy": "Apollo", "price": 8.94, "mrp": 9.41, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/ecosprin-75mg-tablet-14s" }
+      ]
+    },
+    {
+      "id": "augmentin-625",
+      "name": "Augmentin 625 Duo",
+      "composition": "Amoxicillin 500mg + Clavulanic acid 125mg",
+      "manufacturer": "GSK",
+      "pack": "Strip of 6 tablets",
+      "rx_required": true,
+      "nppa_ceiling_inr": 234.60,
+      "offers": [
+        { "pharmacy": "1mg", "price": 210.92, "mrp": 234.60, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/augmentin-625-duo-tablet-58974" },
+        { "pharmacy": "PharmEasy", "price": 199.41, "mrp": 234.60, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/augmentin-625mg-duo-tablet-6s" },
+        { "pharmacy": "Netmeds", "price": 206.45, "mrp": 234.60, "delivery_days": 4, "in_stock": false, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/augmentin-625mg-duo-tablet-6s" },
+        { "pharmacy": "Apollo", "price": 222.87, "mrp": 234.60, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/augmentin-625mg-duo-tablet-6s" }
+      ]
+    },
+    {
+      "id": "limcee",
+      "name": "Limcee",
+      "composition": "Vitamin C 500mg",
+      "manufacturer": "Abbott",
+      "pack": "Strip of 15 tablets",
+      "rx_required": false,
+      "nppa_ceiling_inr": 27.50,
+      "offers": [
+        { "pharmacy": "1mg", "price": 24.75, "mrp": 27.50, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/otc/limcee-chewable-tablet-otc333700" },
+        { "pharmacy": "PharmEasy", "price": 23.38, "mrp": 27.50, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/limcee-chewable-tablet-15s" },
+        { "pharmacy": "Netmeds", "price": 24.20, "mrp": 27.50, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/limcee-chewable-tablet-15s" },
+        { "pharmacy": "Apollo", "price": 26.40, "mrp": 27.50, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/otc/limcee-chewable-tablet-15s" }
+      ]
+    },
+    {
+      "id": "calpol-500",
+      "name": "Calpol 500",
+      "composition": "Paracetamol 500mg",
+      "manufacturer": "GSK",
+      "pack": "Strip of 15 tablets",
+      "rx_required": false,
+      "nppa_ceiling_inr": 22.41,
+      "offers": [
+        { "pharmacy": "1mg", "price": 20.17, "mrp": 22.41, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/calpol-500-tablet-67120" },
+        { "pharmacy": "PharmEasy", "price": 19.05, "mrp": 22.41, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/calpol-500mg-tablet-15s" },
+        { "pharmacy": "Netmeds", "price": 19.50, "mrp": 22.41, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/calpol-500mg-tablet-15s" },
+        { "pharmacy": "Apollo", "price": 21.29, "mrp": 22.41, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/calpol-500mg-tablet-15s" }
+      ]
+    },
+    {
+      "id": "meftal-spas",
+      "name": "Meftal Spas",
+      "composition": "Mefenamic acid 250mg + Dicyclomine 10mg",
+      "manufacturer": "Blue Cross Laboratories",
+      "pack": "Strip of 10 tablets",
+      "rx_required": true,
+      "nppa_ceiling_inr": 65.20,
+      "offers": [
+        { "pharmacy": "1mg", "price": 58.68, "mrp": 65.20, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/meftal-spas-tablet-67271" },
+        { "pharmacy": "PharmEasy", "price": 55.42, "mrp": 65.20, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/meftal-spas-tablet-10s" },
+        { "pharmacy": "Netmeds", "price": 56.72, "mrp": 65.20, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/meftal-spas-tablet-10s" },
+        { "pharmacy": "Apollo", "price": 61.94, "mrp": 65.20, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/meftal-spas-tablet-10s" }
+      ]
+    },
+    {
+      "id": "volini-gel",
+      "name": "Volini Gel",
+      "composition": "Diclofenac diethylamine 1.16% w/w",
+      "manufacturer": "Sun Pharma",
+      "pack": "Tube of 30g",
+      "rx_required": false,
+      "nppa_ceiling_inr": 168.00,
+      "offers": [
+        { "pharmacy": "1mg", "price": 151.20, "mrp": 168.00, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/otc/volini-pain-relief-gel-otc290290" },
+        { "pharmacy": "PharmEasy", "price": 142.80, "mrp": 168.00, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/volini-gel-30g" },
+        { "pharmacy": "Netmeds", "price": 147.84, "mrp": 168.00, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/volini-gel-30g" },
+        { "pharmacy": "Apollo", "price": 159.60, "mrp": 168.00, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/otc/volini-gel-30g" }
+      ]
+    },
+    {
+      "id": "electral",
+      "name": "Electral Powder",
+      "composition": "Oral Rehydration Salts",
+      "manufacturer": "FDC",
+      "pack": "Sachet of 21.8g",
+      "rx_required": false,
+      "nppa_ceiling_inr": 27.00,
+      "offers": [
+        { "pharmacy": "1mg", "price": 24.30, "mrp": 27.00, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/otc/electral-powder-otc125789" },
+        { "pharmacy": "PharmEasy", "price": 22.95, "mrp": 27.00, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/electral-powder-21-8gm" },
+        { "pharmacy": "Netmeds", "price": 23.49, "mrp": 27.00, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/electral-powder-21-8gm" },
+        { "pharmacy": "Apollo", "price": 25.65, "mrp": 27.00, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/otc/electral-powder-21-8gm" }
+      ]
+    },
+    {
+      "id": "becosules",
+      "name": "Becosules Capsules",
+      "composition": "Vitamin B Complex + Vitamin C",
+      "manufacturer": "Pfizer",
+      "pack": "Strip of 20 capsules",
+      "rx_required": false,
+      "nppa_ceiling_inr": 56.80,
+      "offers": [
+        { "pharmacy": "1mg", "price": 51.12, "mrp": 56.80, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/otc/becosules-capsule-otc103301" },
+        { "pharmacy": "PharmEasy", "price": 48.28, "mrp": 56.80, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/becosules-capsule-20s" },
+        { "pharmacy": "Netmeds", "price": 49.98, "mrp": 56.80, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/becosules-capsule-20s" },
+        { "pharmacy": "Apollo", "price": 53.96, "mrp": 56.80, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/otc/becosules-capsule-20s" }
+      ]
+    },
+    {
+      "id": "shelcal-500",
+      "name": "Shelcal 500",
+      "composition": "Calcium Carbonate 500mg + Vitamin D3 250 IU",
+      "manufacturer": "Torrent Pharmaceuticals",
+      "pack": "Strip of 15 tablets",
+      "rx_required": false,
+      "nppa_ceiling_inr": 145.20,
+      "offers": [
+        { "pharmacy": "1mg", "price": 130.68, "mrp": 145.20, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/drugs/shelcal-500-tablet-67513" },
+        { "pharmacy": "PharmEasy", "price": 123.42, "mrp": 145.20, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/shelcal-500mg-tablet-15s" },
+        { "pharmacy": "Netmeds", "price": 127.78, "mrp": 145.20, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/shelcal-500mg-tablet-15s" },
+        { "pharmacy": "Apollo", "price": 137.94, "mrp": 145.20, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/medicine/shelcal-500mg-tablet-15s" }
+      ]
+    },
+    {
+      "id": "cofdex-syrup",
+      "name": "Cofdex Syrup",
+      "composition": "Codeine 10mg + Chlorpheniramine 4mg per 5ml",
+      "manufacturer": "Wockhardt",
+      "pack": "Bottle of 100ml",
+      "rx_required": true,
+      "nppa_ceiling_inr": 158.00,
+      "offers": [
+        { "pharmacy": "1mg", "price": 142.20, "mrp": 158.00, "delivery_days": 2, "in_stock": true, "return_days": 5, "url": "https://www.1mg.com/drugs/cofdex-syrup-67632" },
+        { "pharmacy": "PharmEasy", "price": 134.30, "mrp": 158.00, "delivery_days": 3, "in_stock": true, "return_days": 5, "url": "https://pharmeasy.in/online-medicine-order/cofdex-syrup-100ml" },
+        { "pharmacy": "Netmeds", "price": 139.04, "mrp": 158.00, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/cofdex-syrup-100ml" },
+        { "pharmacy": "Apollo", "price": 150.10, "mrp": 158.00, "delivery_days": 1, "in_stock": true, "return_days": 5, "url": "https://www.apollopharmacy.in/medicine/cofdex-syrup-100ml" }
+      ]
+    },
+    {
+      "id": "zincovit",
+      "name": "Zincovit",
+      "composition": "Multivitamin + Multimineral + Zinc",
+      "manufacturer": "Apex Laboratories",
+      "pack": "Strip of 15 tablets",
+      "rx_required": false,
+      "nppa_ceiling_inr": 117.60,
+      "offers": [
+        { "pharmacy": "1mg", "price": 105.84, "mrp": 117.60, "delivery_days": 2, "in_stock": true, "return_days": 7, "url": "https://www.1mg.com/otc/zincovit-tablet-otc111903" },
+        { "pharmacy": "PharmEasy", "price": 99.96, "mrp": 117.60, "delivery_days": 3, "in_stock": true, "return_days": 7, "url": "https://pharmeasy.in/online-medicine-order/zincovit-tablet-15s" },
+        { "pharmacy": "Netmeds", "price": 103.49, "mrp": 117.60, "delivery_days": 4, "in_stock": true, "return_days": 5, "url": "https://www.netmeds.com/prescriptions/zincovit-tablet-15s" },
+        { "pharmacy": "Apollo", "price": 111.72, "mrp": 117.60, "delivery_days": 1, "in_stock": true, "return_days": 7, "url": "https://www.apollopharmacy.in/otc/zincovit-tablet-15s" }
+      ]
+    }
+  ]
+}
