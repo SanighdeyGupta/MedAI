@@ -31,8 +31,8 @@ export default function Home() {
       <main className="flex flex-1 flex-col items-center justify-center px-6 pt-8 pb-24">
         <div className="w-full max-w-3xl text-center">
           <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 text-xs text-white/70 mb-6 float-in">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#22d3ee] animate-pulse" />
-            Day 1 demo · live scrapers coming online soon
+            <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
+            Live prices across 4 pharmacies · refreshed every 6 hours
           </div>
           <h1 className="text-5xl sm:text-6xl font-semibold tracking-tight text-white leading-tight float-in">
             The <span className="gradient-text">cheapest, fastest</span> place
@@ -73,16 +73,16 @@ export default function Home() {
 
         <section id="data" className="mt-16 w-full max-w-3xl text-center text-sm text-white/50">
           <p>
-            Prices in this preview are illustrative. Live data pipelines (NPPA + per-pharmacy scrapers)
-            arrive in the next release.
-            See the <Link href="/about" className="underline hover:text-white">how-we-built-this</Link> page for the architecture.
+            Searching a medicine we haven&rsquo;t indexed yet? Type the brand name and click
+            <span className="text-white"> &ldquo;Search live across pharmacies&rdquo;</span> — we fetch it from
+            Netmeds, PharmEasy, and 1mg in a few seconds. Apollo backfills on the next scheduled refresh.
           </p>
         </section>
       </main>
 
       <footer className="px-6 py-6 text-center text-xs text-white/40">
-        MedAI is an independent price comparison demo. Not affiliated with any pharmacy.
-        We deep-link to the source pharmacy for purchase.
+        MedAI is an independent price comparison tool. Not affiliated with any pharmacy.
+        Every result deep-links to the source pharmacy where the purchase happens.
       </footer>
     </div>
   );

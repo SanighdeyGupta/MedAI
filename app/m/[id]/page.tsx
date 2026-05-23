@@ -97,23 +97,20 @@ export default async function MedicinePage({ params }: PageProps) {
             <div>
               {allDemo ? (
                 <>
-                  <span className="font-medium">Demo data.</span> Live prices flow in
-                  via scheduled scrapers (every 6h). Run{" "}
-                  <code className="text-xs bg-black/30 px-1.5 py-0.5 rounded">npm run seed</code>
-                  {" "}then trigger a scraper to see real prices.
+                  <span className="font-medium">Live pricing temporarily unavailable.</span>{" "}
+                  Showing reference prices. Live data refreshes every 6 hours via our scheduled
+                  scrapers — try again shortly.
                 </>
               ) : hasOld ? (
                 <>
                   <span className="font-medium">Some prices are over 7 days old.</span>{" "}
-                  The scheduled scraper may have failed — check{" "}
-                  <code className="text-xs bg-black/30 px-1.5 py-0.5 rounded">scrape_log</code>
-                  {" "}in Supabase. We&rsquo;re showing the last-known cache.
+                  A platform may be temporarily unreachable. Showing the last-known prices —
+                  click through to verify before buying.
                 </>
               ) : (
                 <>
                   <span className="font-medium">Prices may be slightly stale.</span>{" "}
-                  Scheduled refresh runs every 6 hours — next platform card with a yellow
-                  dot is older than 24h.
+                  We refresh every 6 hours. Cards with a yellow dot were last checked over a day ago.
                 </>
               )}
             </div>
@@ -163,9 +160,6 @@ export default async function MedicinePage({ params }: PageProps) {
           </p>
         </section>
 
-        <section className="mt-6 text-center text-xs text-white/40">
-          Day 1 demo · prices shown are illustrative seed data. Live scrapers come online from Day 3.
-        </section>
       </main>
     </div>
   );
