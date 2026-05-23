@@ -77,7 +77,11 @@
       "Bash(curl -sS -A 'Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/131.0.0.0 Safari/537.36' -H 'Accept: application/json' -H 'Referer: https://www.1mg.com/' https://www.1mg.com/pharmacy_api_webservices/search?name=dolo+650 -o /c/tmp/1mg-api-full.json)",
       "PowerShell(npm run build 2>&1)",
       "Bash(tail -20 \"C:\\\\Users\\\\gupta\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-gupta-OneDrive-Documents-MedAI\\\\4e969672-19f8-4278-99da-f5290c5d1b99\\\\tasks\\\\b6sru6p7x.output\" 2>/dev/null || find \"C:\\\\Users\\\\gupta\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\c--Users-gupta-OneDrive-Documents-MedAI\" -name \"*.output\" -type f 2>/dev/null | head -3)",
-      "Read(//c/Users/gupta/AppData/Local/Temp/claude/c--Users-gupta-OneDrive-Documents-MedAI/**)"
+      "Read(//c/Users/gupta/AppData/Local/Temp/claude/c--Users-gupta-OneDrive-Documents-MedAI/**)",
+      "Bash(git -C \"c:\\\\Users\\\\gupta\\\\OneDrive\\\\Documents\\\\MedAI\" log --oneline -5)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
