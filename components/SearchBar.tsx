@@ -3,10 +3,19 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { Medicine } from "@/lib/types";
+import { nameScore } from "@/lib/scrapers/match";
 
 interface Props {
   initialQuery?: string;
   size?: "lg" | "md";
+}
+
+interface DiscoverResponse {
+  medicine_id: string | null;
+  reused_existing: boolean;
+  offer_count: number;
+  error?: string;
+  message?: string;
 }
 
 export default function SearchBar({ initialQuery = "", size = "lg" }: Props) {
@@ -15,12 +24,20 @@ export default function SearchBar({ initialQuery = "", size = "lg" }: Props) {
   const [results, setResults] = useState<Medicine[]>([]);
   const [open, setOpen] = useState(false);
   const [highlight, setHighlight] = useState(-1);
+  // v2: live-discover state
+  const [discovering, setDiscovering] = useState(false);
+  const [discoverError, setDiscoverError] = useState<string | null>(null);
+  // True once we've actually fetched search results for the current `q`,
+  // so the "no matches" CTA doesn't flash before the first fetch lands.
+  const [searched, setSearched] = useState(false);
   const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let cancelled = false;
     if (!q.trim()) {
       setResults([]);
+      setSearched(false);
+      setDiscoverError(null);
       return;
     }
     const t = setTimeout(async () => {
@@ -32,6 +49,7 @@ export default function SearchBar({ initialQuery = "", size = "lg" }: Props) {
           setResults(data.results);
           setOpen(true);
           setHighlight(-1);
+          setSearched(true);
         }
       } catch {
         /* swallow */
@@ -60,6 +78,36 @@ export default function SearchBar({ initialQuery = "", size = "lg" }: Props) {
       router.push(`/search?q=${encodeURIComponent(q.trim())}`);
     }
   }
+
+  async function discover() {
+    const query = q.trim();
+    if (!query || discovering) return;
+    setDiscovering(true);
+    setDiscoverError(null);
+    try {
+      const res = await fetch(`/api/discover?q=${encodeURIComponent(query)}`, { method: "POST" });
+      const data = (await res.json()) as DiscoverResponse;
+      if (!res.ok || !data.medicine_id) {
+        setDiscoverError(data.message ?? `No prices found for "${query}".`);
+        setDiscovering(false);
+        return;
+      }
+      router.push(`/m/${data.medicine_id}`);
+    } catch (err) {
+      setDiscoverError(err instanceof Error ? err.message : "Network error. Try again.");
+      setDiscovering(false);
+    }
+  }
+
+  // Show the big "Search live" CTA when no fuzzy results came back.
+  const showDiscoverCta = searched && results.length === 0 && q.trim().length >= 3 && !discovering;
+
+  // Show a smaller "Not the right one?" footer when results EXIST but the
+  // best one isn't a strong match for the query — common case: user typed
+  // "Glycomet GP1" and pg_trgm returned "Glycomet 500" as the loose match.
+  const topResultScore = results.length > 0 ? nameScore(q, results[0].name) : 0;
+  const showWeakMatchFooter =
+    !discovering && searched && results.length > 0 && q.trim().length >= 3 && topResultScore < 0.75;
 
   const isLg = size === "lg";
   const padding = isLg ? "px-6 py-5" : "px-4 py-3";
@@ -98,19 +146,28 @@ export default function SearchBar({ initialQuery = "", size = "lg" }: Props) {
               setHighlight((h) => Math.max(h - 1, -1));
             } else if (e.key === "Enter") {
               e.preventDefault();
-              submit();
+              if (results.length > 0) submit();
+              else if (showDiscoverCta) discover();
             } else if (e.key === "Escape") {
               setOpen(false);
             }
           }}
-          placeholder="Search a medicine, e.g. Dolo 650, Pantoprazole, Azithral…"
+          placeholder="Search any medicine — Dolo 650, Glycomet GP1, Pantop DSR…"
           className={`search-input flex-1 bg-transparent outline-none ${textSize} text-white placeholder-white/40`}
+          disabled={discovering}
         />
-        {q && (
+        {discovering && (
+          <span className="text-xs text-white/70 flex items-center gap-2">
+            <span className="w-3 h-3 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+            Searching pharmacies…
+          </span>
+        )}
+        {!discovering && q && (
           <button
             onClick={() => {
               setQ("");
               setResults([]);
+              setDiscoverError(null);
             }}
             className="text-white/40 hover:text-white/90 text-sm"
             aria-label="Clear"
@@ -138,6 +195,46 @@ export default function SearchBar({ initialQuery = "", size = "lg" }: Props) {
               <div className="text-white/40 text-xs flex-shrink-0">{m.pack}</div>
             </button>
           ))}
+          {showWeakMatchFooter && (
+            <button
+              onClick={discover}
+              className="w-full text-left px-5 py-3 border-t border-white/10 bg-white/[0.02] hover:bg-white/5 transition-colors flex items-center justify-between gap-4"
+            >
+              <span className="text-white/70 text-sm">
+                Not what you wanted? <span className="text-white">Search live for &ldquo;{q.trim()}&rdquo;</span>
+              </span>
+              <svg className="w-4 h-4 text-white/60" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7-7 7M5 12h16" />
+              </svg>
+            </button>
+          )}
+        </div>
+      )}
+
+      {showDiscoverCta && (
+        <div className="absolute z-20 left-0 right-0 mt-2 glass-strong rounded-2xl p-4 float-in">
+          <div className="text-white/70 text-sm mb-3">
+            Not in our cache yet. We can search live across Netmeds, PharmEasy, and 1mg —
+            takes ~3-6 seconds.
+          </div>
+          <button
+            onClick={discover}
+            className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-white text-black font-medium px-5 py-2.5 hover:bg-white/90 transition-colors"
+          >
+            Search live for &ldquo;{q.trim()}&rdquo;
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7-7 7M5 12h16" />
+            </svg>
+          </button>
+          <div className="mt-3 text-xs text-white/40">
+            Apollo data refreshes in the next scheduled run (every 6h).
+          </div>
+        </div>
+      )}
+
+      {discoverError && !discovering && (
+        <div className="absolute z-20 left-0 right-0 mt-2 glass-strong rounded-2xl p-4 border border-[#f43f5e]/30 float-in">
+          <div className="text-[#fda4af] text-sm">{discoverError}</div>
         </div>
       )}
     </div>

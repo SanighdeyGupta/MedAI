@@ -28,8 +28,24 @@ create table if not exists medicines (
   rx_required       boolean not null default false,
   nppa_ceiling_inr  numeric(10, 2),
   created_at        timestamptz not null default now(),
-  updated_at        timestamptz not null default now()
+  updated_at        timestamptz not null default now(),
+  -- v2: provenance of the row.
+  --   'seed'       — loaded from data/medicines.json by scripts/seed.ts
+  --   'discovered' — created on the fly by /api/discover (user-driven)
+  --   'manual'     — inserted by a maintainer via Supabase Table Editor
+  created_via       text not null default 'seed' check (created_via in ('seed','discovered','manual'))
 );
+
+-- For existing tables (created before the v2 column landed), add it idempotently.
+do $$ begin
+  if not exists (
+    select 1 from information_schema.columns
+    where table_name = 'medicines' and column_name = 'created_via'
+  ) then
+    alter table medicines add column created_via text not null default 'seed'
+      check (created_via in ('seed','discovered','manual'));
+  end if;
+end $$;
 
 create index if not exists medicines_name_trgm
   on medicines using gin (name gin_trgm_ops);
@@ -164,3 +180,26 @@ create policy "public read medicines" on medicines for select using (true);
 create policy "public read platforms" on platforms for select using (true);
 create policy "public read prices"    on prices    for select using (true);
 -- scrape_log + daily_budget: no public policy = service role only.
+
+------------------------------------------------------------------
+-- v2: scheduled cleanup of scrape_log (>30 days deleted nightly)
+--
+-- pg_cron is available on Supabase out of the box. The job runs at
+-- 02:30 UTC (08:00 IST) which is off-peak for Indian users.
+------------------------------------------------------------------
+create extension if not exists pg_cron;
+
+-- Unschedule any previous version of the job to keep this block idempotent.
+do $$
+declare j record;
+begin
+  for j in select jobid from cron.job where jobname = 'scrape-log-cleanup' loop
+    perform cron.unschedule(j.jobid);
+  end loop;
+end $$;
+
+select cron.schedule(
+  'scrape-log-cleanup',
+  '30 2 * * *',
+  $$ delete from scrape_log where fetched_at < now() - interval '30 days' $$
+);

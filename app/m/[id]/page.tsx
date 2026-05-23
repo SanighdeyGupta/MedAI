@@ -6,6 +6,9 @@ import ComparisonGrid from "@/components/ComparisonGrid";
 import { findMedicineById } from "@/lib/medicines";
 import { rankOffers } from "@/lib/scoring/ranker";
 import { freshnessOf } from "@/lib/format";
+import type { PharmacyId } from "@/lib/types";
+
+const ALL_PHARMACIES: PharmacyId[] = ["1mg", "PharmEasy", "Netmeds", "Apollo"];
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -26,6 +29,11 @@ export default async function MedicinePage({ params }: PageProps) {
   const hasOld = freshnesses.includes("old");
   const hasStale = hasOld || freshnesses.includes("stale");
   const allDemo = medicine.offers.every((o) => !o.fetched_at);
+
+  // Which canonical pharmacies don't have an offer for this medicine? Likely
+  // happens after on-demand discovery (Apollo missing until next 6h cron).
+  const presentPharmacies = new Set(medicine.offers.map((o) => o.pharmacy));
+  const missingPharmacies = ALL_PHARMACIES.filter((p) => !presentPharmacies.has(p));
 
   return (
     <div className="flex flex-col flex-1">
@@ -131,6 +139,7 @@ export default async function MedicinePage({ params }: PageProps) {
             offers={ranking.ranked}
             mrp={mrp}
             winnerId={ranking.winner.pharmacy}
+            missingPharmacies={missingPharmacies}
           />
         </section>
 

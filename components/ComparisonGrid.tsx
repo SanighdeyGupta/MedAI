@@ -1,6 +1,6 @@
 import { getPlatforms } from "@/lib/medicines";
 import { formatAgo, freshnessOf } from "@/lib/format";
-import type { Platform, ScoredOffer } from "@/lib/types";
+import type { PharmacyId, Platform, ScoredOffer } from "@/lib/types";
 
 const FRESHNESS_COLOR = {
   fresh: "text-[#86efac]",
@@ -13,9 +13,12 @@ interface Props {
   offers: ScoredOffer[];
   mrp: number;
   winnerId: string;
+  /** Pharmacies in the canonical 4 that have NO offer row yet. Rendered as
+   *  greyed-out stubs explaining the next refresh is pending. */
+  missingPharmacies?: PharmacyId[];
 }
 
-export default async function ComparisonGrid({ offers, mrp, winnerId }: Props) {
+export default async function ComparisonGrid({ offers, mrp, winnerId, missingPharmacies = [] }: Props) {
   const platforms = await getPlatforms();
   const byId = new Map<string, Platform>(platforms.map((p) => [p.id, p]));
 
@@ -86,6 +89,47 @@ export default async function ComparisonGrid({ offers, mrp, winnerId }: Props) {
               </span>
             </div>
           </a>
+        );
+      })}
+
+      {missingPharmacies.map((pharmacy) => {
+        const platform = byId.get(pharmacy);
+        return (
+          <div
+            key={`missing-${pharmacy}`}
+            className="relative glass rounded-2xl p-5 overflow-hidden opacity-60"
+          >
+            <div
+              className="absolute top-0 left-0 right-0 h-1 opacity-40"
+              style={{ background: platform?.gradient ?? "transparent" }}
+            />
+
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <span
+                  className="w-2.5 h-2.5 rounded-full"
+                  style={{ background: platform?.color }}
+                />
+                <span className="text-white font-medium">{platform?.name ?? pharmacy}</span>
+              </div>
+              <span className="text-[10px] uppercase tracking-wider text-white/50 bg-white/5 px-2 py-0.5 rounded-full border border-white/10">
+                Pending
+              </span>
+            </div>
+
+            <div className="text-white/80 text-sm leading-relaxed">
+              Data refreshes every <span className="font-medium">6 hours</span>.
+            </div>
+            <div className="text-white/40 text-xs mt-2 leading-relaxed">
+              This medicine was added via on-demand discovery. {platform?.name ?? pharmacy} prices
+              fill in on the next scheduled scrape.
+            </div>
+
+            <div className="mt-4 flex items-center justify-between text-xs">
+              <span className="text-white/40">{platform?.domain}</span>
+              <span className="text-white/30">—</span>
+            </div>
+          </div>
         );
       })}
     </div>

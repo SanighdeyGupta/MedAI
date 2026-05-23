@@ -149,7 +149,8 @@ py -3.11 -m scrapers.run --site 1mg     --limit 25
 
 ### Deploy
 
-See [DEPLOY.md](DEPLOY.md) — Vercel + GitHub public repo + secrets, end-to-end in ~15 min.
+- **[DEPLOY.md](DEPLOY.md)** — Vercel + GitHub deploy guide (~15 min).
+- **[NETLIFY.md](NETLIFY.md)** — Netlify fallback if Vercel doesn't work for you (same architecture, same cost, ~10 min).
 
 ---
 

@@ -1,0 +1,19 @@
+# Netlify configuration for the MedAI Next.js app.
+# Documentation: https://docs.netlify.com/frameworks/next-js/overview/
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # Match the Node version we built with locally (Node 24).
+  # Netlify supports Node 18, 20, 22, 24.
+  NODE_VERSION = "20"
+  # Speed up builds: don't run scrape scripts on Netlify (those live in GitHub Actions).
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Netlify auto-installs and configures @netlify/plugin-nextjs when it detects
+# next.config.* in the repo. We declare it explicitly so the build doesn't
+# silently degrade if auto-detection misses.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
