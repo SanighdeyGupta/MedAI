@@ -56,6 +56,20 @@ body {
   box-shadow: 0 12px 50px -10px rgba(0, 0, 0, 0.7);
 }
 
+/* Solid-dark panel for overlays where the text behind would otherwise
+   bleed through (search-results dropdown, discover CTA). Strong opacity,
+   moderate blur for polish, prominent border so the panel reads as a
+   distinct surface against any background. */
+.dropdown-panel {
+  background: rgba(14, 9, 26, 0.96);
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 16px 60px -8px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
 .glow {
   box-shadow:
     0 0 0 1px rgba(124, 92, 255, 0.30),
