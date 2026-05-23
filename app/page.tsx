@@ -43,11 +43,11 @@ export default function Home() {
             and tell you exactly why one wins.
           </p>
 
-          <div className="mt-10 float-in">
+          <div className="mt-10 float-in relative z-50 isolate">
             <SearchBar />
           </div>
 
-          <div className="mt-8 float-in">
+          <div className="mt-8 float-in relative z-10 isolate">
             <div className="text-xs uppercase tracking-wider text-white/40 mb-3">Popular right now</div>
             <PopularChips />
           </div>
