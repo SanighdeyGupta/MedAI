@@ -98,18 +98,23 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 3. Persist. Without an admin client we can't write — but we can still
-  // return the live result so the user sees prices (just no caching).
+  // 3. Persist. Without an admin client we can't write — surface that
+  // clearly to the operator (the route literally found prices but can't
+  // cache them, and the UI then can't link to a medicine page since the
+  // medicine row doesn't exist in the DB).
   const sb = getSupabaseAdmin();
   if (!sb) {
-    return NextResponse.json({
-      medicine_id: null,
-      reused_existing: false,
-      offer_count: result.offers.length,
-      scrape_results: result.scrape_results,
-      live_only: result,
-      warning: "SUPABASE_SERVICE_ROLE_KEY not configured — results not cached.",
-    });
+    return NextResponse.json(
+      {
+        error: "service_role_missing",
+        message:
+          `Found ${result.offers.length} live prices for "${q}" but cannot save them. ` +
+          `Set SUPABASE_SERVICE_ROLE_KEY in your hosting env vars (Netlify Site settings → Environment variables) and redeploy.`,
+        offer_count: result.offers.length,
+        scrape_results: result.scrape_results,
+      },
+      { status: 503 },
+    );
   }
 
   // Upsert medicine row. We INSERT with conflict-do-update so a parallel
