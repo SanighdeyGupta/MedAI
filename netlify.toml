@@ -11,6 +11,11 @@
   NODE_VERSION = "20"
   # Speed up builds: don't run scrape scripts on Netlify (those live in GitHub Actions).
   NEXT_TELEMETRY_DISABLED = "1"
+  # NEXT_PUBLIC_* vars are intentionally bundled into client JS (that's the whole
+  # point of the prefix). Supabase's anon key is designed to be public — Row
+  # Level Security policies enforce access. SUPABASE_SERVICE_ROLE_KEY (no
+  # NEXT_PUBLIC_ prefix) stays server-only and is NOT in this list.
+  SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY"
 
 # Netlify auto-installs and configures @netlify/plugin-nextjs when it detects
 # next.config.* in the repo. We declare it explicitly so the build doesn't
