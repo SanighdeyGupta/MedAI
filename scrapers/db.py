@@ -8,6 +8,7 @@ Actions or on the developer's machine.
 from __future__ import annotations
 
 import os
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from supabase import Client, create_client
@@ -44,6 +45,11 @@ def list_medicines(sb: Client, limit: int = 25) -> list[dict[str, Any]]:
 
 
 def upsert_price(sb: Client, offer: Offer) -> None:
+    # Explicitly set fetched_at + stale_after. The column DEFAULTs only fire
+    # on INSERT — on the conflict-path UPDATE, omitting them would leave the
+    # row's original timestamp untouched and the UI would keep showing
+    # "1d ago" forever for medicines that already had a row.
+    now = datetime.now(timezone.utc)
     sb.table("prices").upsert(
         {
             "medicine_id": offer.medicine_id,
@@ -54,7 +60,8 @@ def upsert_price(sb: Client, offer: Offer) -> None:
             "in_stock": offer.in_stock,
             "return_days": offer.return_days,
             "url": offer.url,
-            # fetched_at + stale_after use DB defaults (now() / now() + 12h)
+            "fetched_at": now.isoformat(),
+            "stale_after": (now + timedelta(hours=12)).isoformat(),
         },
         on_conflict="medicine_id,platform_id",
     ).execute()
