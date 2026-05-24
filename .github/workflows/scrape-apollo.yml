@@ -9,7 +9,7 @@ on:
       limit:
         description: "Max medicines to scrape"
         required: false
-        default: "30"
+        default: "50"
 
 concurrency:
   group: scrape-apollo
@@ -46,4 +46,4 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           PYTHONIOENCODING: utf-8
         run: |
-          python -m scrapers.run --site apollo --limit "${{ github.event.inputs.limit || '30' }}"
+          python -m scrapers.run --site apollo --limit "${{ github.event.inputs.limit || '50' }}"

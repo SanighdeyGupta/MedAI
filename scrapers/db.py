@@ -27,9 +27,16 @@ def get_admin_client() -> Client:
 
 
 def list_medicines(sb: Client, limit: int = 25) -> list[dict[str, Any]]:
+    # Order by created_at desc so freshly-discovered medicines get scraped
+    # FIRST. Without an order, Postgres returns rows in arbitrary order and
+    # the limit can permanently exclude on-demand-discovered medicines
+    # (which then show "1d ago" prices forever because the cron never picks
+    # them up). Discovered rows have the newest created_at, so DESC puts
+    # them at the front.
     res = (
         sb.table("medicines")
         .select("id,name,composition,manufacturer,pack,rx_required")
+        .order("created_at", desc=True)
         .limit(limit)
         .execute()
     )
