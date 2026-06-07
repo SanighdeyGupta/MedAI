@@ -2,8 +2,10 @@
  * PharmEasy TS scraper (mirrors `scrapers/pharmeasy.py`).
  *
  * Fetches the SSR search page and parses `__NEXT_DATA__` for the
- * `props.pageProps.searchResults` array. See LEGAL.md for the
- * robots.txt posture on this endpoint.
+ * `props.pageProps.productList` array. (2026-06: PharmEasy renamed
+ * `searchResults` -> `productList`, `manufacturerName` -> `manufacturer`,
+ * `packShortName` -> `packform`.) See LEGAL.md for the robots.txt
+ * posture on this endpoint.
  */
 
 import { pickBest } from "./match";
@@ -17,8 +19,8 @@ const CHROME_UA =
 interface PharmEasyItem {
   name?: string;
   slug?: string;
-  packShortName?: string;
-  manufacturerName?: string;
+  packform?: string;
+  manufacturer?: string;
   moleculeName?: string;
   salePriceDecimal?: string;
   mrpDecimal?: string;
@@ -30,7 +32,7 @@ interface PharmEasyItem {
 interface PharmEasyData {
   props?: {
     pageProps?: {
-      searchResults?: PharmEasyItem[];
+      productList?: PharmEasyItem[];
     };
   };
 }
@@ -110,13 +112,13 @@ export async function scrapePharmEasy(query: string, pack?: string | null): Prom
     };
   }
 
-  const items = data.props?.pageProps?.searchResults ?? [];
+  const items = data.props?.pageProps?.productList ?? [];
   const { item, score } = pickBest<PharmEasyItem>({
     items,
     targetName: query,
     targetPack: pack,
     nameOf: (it) => it.name ?? "",
-    packTextOf: (it) => `${it.packShortName ?? ""} ${it.manufacturerName ?? ""}`,
+    packTextOf: (it) => `${it.packform ?? ""} ${it.manufacturer ?? ""}`,
     threshold: 0.5,
   });
   if (!item) {
@@ -160,8 +162,8 @@ export async function scrapePharmEasy(query: string, pack?: string | null): Prom
     candidate: {
       name: item.name ?? "",
       composition: item.moleculeName ?? null,
-      manufacturer: item.manufacturerName ?? null,
-      pack: item.packShortName ?? null,
+      manufacturer: item.manufacturer ?? null,
+      pack: item.packform ?? null,
     },
     error_message: null,
     duration_ms: Date.now() - start,

@@ -1,13 +1,18 @@
 """PharmEasy scraper.
 
 PharmEasy's search results page is server-rendered as a Next.js app:
-the full product list lives in `props.pageProps.searchResults[]` inside
+the full product list lives in `props.pageProps.productList[]` inside
 the `<script id="__NEXT_DATA__">` blob. No browser execution needed.
+
+(2026-06: PharmEasy renamed `searchResults` -> `productList`, and the
+per-item fields `manufacturerName` -> `manufacturer`, `packShortName`
+-> `packform`. The price + slug + availability shape is otherwise
+unchanged.)
 
 The endpoint pattern is:
   https://pharmeasy.in/search/all?name=<query>
 
-Item shape (relevant fields from props.pageProps.searchResults[i]):
+Item shape (relevant fields from props.pageProps.productList[i]):
     name:                              "Dolo 650Mg Strip Of 15 Tablets"
     slug:                              "dolo-650mg-strip-of-15-tablets-44140"
     salePriceDecimal:                  "24.09"   (effective)
@@ -127,7 +132,7 @@ class PharmEasyScraper(PharmacyScraper):
         items = (
             data.get("props", {})
             .get("pageProps", {})
-            .get("searchResults")
+            .get("productList")
             or []
         )
 
@@ -136,12 +141,12 @@ class PharmEasyScraper(PharmacyScraper):
             target_name=medicine["name"],
             target_pack=medicine.get("pack"),
             name_of=lambda it: it.get("name") or "",
-            # PharmEasy's `manufacturerName` + `packShortName` sometimes contain
-            # the pack hint when `name` does not.
+            # PharmEasy's `manufacturer` + `packform` sometimes contain the
+            # pack hint when `name` does not.
             pack_text_of=lambda it: " ".join(
                 [
-                    it.get("packShortName") or "",
-                    it.get("manufacturerName") or "",
+                    it.get("packform") or "",
+                    it.get("manufacturer") or "",
                 ]
             ),
             threshold=0.50,
